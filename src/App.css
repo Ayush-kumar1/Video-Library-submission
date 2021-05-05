@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+* {
+    scroll-behavior: smooth;
+}
+
+:root {
+    --white: #ffffff;
+    --black: #000000;
+    --gray: #808080;
+    --background_white: #ddd;
+    --antiquewhite: #faebd7;
+    --error: #aa1a13;
+    --warning: #b4710c;
+    --info: #653088;
+    --sucess: #0fd884;
+    --default_button: #D5D5D5;
+    --primary_button: #ff0044;
+    --primary_button_hover: #ffff14;
+    --sucess_btn: #1ad61a;
+    --error_btn: #e41111;
+    --secondary_btn: #1665a7;
+    --info_btn: #2581cc;
+    --input_shadow: #34bb51;
+    --rating: #ffe400;
+    --navbar: #7952B3;
+}
+
+.App {
+    min-height: 100vh;
+    background-color: #39445a;
+    color: white;
+    padding-top: 140px;
+    padding-bottom: 70px;
+}
+
+@media(max-width:700px) {
+    .App {
+        padding-top: 70px;
+    }
+}
+
+.pageTitle {
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2vw;
+    padding: 4px;
+    border-radius: 50px;
+    color: white;
+}
+
+.btn-primary {
+    width: 120px;
+    height: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 1.2rem;
+    border: none;
+    color: white;
+    background-color: var(--primary_button);
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 var(--primary_button_hover);
+    transition: ease-out 0.3s;
+    font-size: 1rem;
+    outline: none;
+}
+
+.btn-primary:hover {
+    box-shadow: inset 170px 0 0 var(--primary_button_hover);
+    cursor: pointer;
+    color: var(--black);
+}
