@@ -1,21 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
-.media {
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    padding: 5px;
-    margin: 5px 0;
-    background-color: #282c34;
-    border-radius: 10px;
-    position: relative;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.media:hover {
-    background-color: rgb(207, 202, 202);
-    color: black;
-}
-
+@import url("https:https://ui-ninja.netlify.app/style.css");
 @media(max-width: 550px) {
     .media {
         width: 45%;

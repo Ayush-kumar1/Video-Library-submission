@@ -30,7 +30,7 @@ const SingleContent = ({id,poster,title,date,media_type,vote_average,payload}) =
 
     return (
 
-        <div className="media">
+        <div className="media_card">
              
              <img className="poster" src={poster?`${img_300}/${poster}`:unavailable} alt="Poster" />
               <b className="title">{title}</b>
