@@ -6,12 +6,11 @@ import { Link, useNavigate } from "react-router-dom";
 import M from "materialize-css";
 import { useVideo } from "../../VideoContext";
 
-
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const{state,dispatch}=useVideo();
- 
+  const { state, dispatch } = useVideo();
+
   let navigate = useNavigate();
 
   const postData = () => {
@@ -22,7 +21,7 @@ function Login() {
     ) {
       return M.toast({ html: "Invalid email" });
     } else {
-      fetch("http://localhost:5000/signin", {
+      fetch("https://matrix-watch-5.herokuapp.com/signin", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -35,12 +34,12 @@ function Login() {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          if (data.message!=="Login succesful") {
+          if (data.message !== "Login succesful") {
             M.toast({ html: data.message, classes: "#c62828 red darken-3" });
           } else {
-            localStorage.setItem("jwt",data.token);
-            localStorage.setItem("user",JSON.stringify(data.user))
-            dispatch({type:"USER", payload:data.user})
+            localStorage.setItem("jwt", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+            dispatch({ type: "USER", payload: data.user });
             M.toast({ html: "Login sucessful" });
             navigate("/");
           }
@@ -55,19 +54,19 @@ function Login() {
     <div style={{ paddingTop: "4rem" }}>
       <div className="media_card">
         <h1 className="brand-logo" style={{ margin: "0 auto" }}>
-        Matrix
+          Matrix
         </h1>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <Input
-          style={{color:"white"}}
+            style={{ color: "white" }}
             type="text"
             placeholder="E-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <Input
-          style={{color:"white"}}
+            style={{ color: "white" }}
             type="password"
             placeholder="Password"
             value={password}
@@ -85,7 +84,10 @@ function Login() {
           <div className="signup-redirect">
             <Link to="/signup">
               {" "}
-              <h5 className="signup-redirect" style={{ color: "white",fontSize:"1.2rem" }}>
+              <h5
+                className="signup-redirect"
+                style={{ color: "white", fontSize: "1.2rem" }}
+              >
                 Don't have an account??
               </h5>
             </Link>

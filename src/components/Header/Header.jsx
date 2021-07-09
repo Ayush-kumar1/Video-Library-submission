@@ -20,15 +20,15 @@ const Header = () => {
         📹 Video Library ⏯️
       </span>
 
-      <div style={{paddingTop:"2rem"}}>
+      <div className="final-buttons">
 
-      <IconButton>
+      <IconButton style={{display:state?"none":"block"}} >
            <Link to="/login">
             <PersonIcon/>
             </Link>
         </IconButton>
 
-        <Button onClick={()=>{
+        <Button className="logout-btn" onClick={()=>{
           localStorage.clear();
 
           dispatch({ type: "CLEAR" });

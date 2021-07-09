@@ -25,7 +25,7 @@ const SingleContent = ({id,poster,title,date,media_type,vote_average,payload}) =
    
      const addWishlist=(id,poster,title,date,media_type)=>{
 
-         fetch("http://localhost:5000/addwishlist",{
+         fetch("https://matrix-watch-5.herokuapp.com/addwishlist",{
            method:"post",
            headers: {
             "Content-Type": "application/json",

@@ -5,12 +5,14 @@ import Playlist from "../../components/Playlist/Playlist";
 import axios from "axios";
 import { useVideo } from "../../VideoContext";
 import { img_300, unavailable } from "../../Config/Config";
+import { Link } from "react-router-dom";
 
 const Favourite = () => {
   const [data, setData] = useState([]);
+  const [video, setVideo] = useState();
 
   useEffect(() => {
-    fetch("http://localhost:5000/mywishlist", {
+    fetch("https://matrix-watch-5.herokuapp.com/mywishlist", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("jwt"),
@@ -24,7 +26,7 @@ const Favourite = () => {
   }, []);
 
   function deleteData(id) {
-    fetch("http://localhost:5000/removewishlist", {
+    fetch("https://matrix-watch-5.herokuapp.com/removewishlist", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -35,28 +37,66 @@ const Favourite = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        console.log(result.result._id);
+        const newData = data.filter((item) => {
+          return item._id !== result.result._id;
+        });
+
+        setData(newData);
       });
   }
 
   return (
+    // {
+    //   data?
+    // }
     <div>
       <span className="pageTitle">Favourites</span>
-      <div className="trending">
-        {data &&
-          data.map((elem) => (
-            <Playlist
-              deletion_id={elem._id}
-              id={elem.id}
-              poster={elem.poster}
-              title={elem.title || elem.name}
-              date={elem.first_air_date || elem.release_date}
-              media_type={elem.media_type}
-              vote_average={elem.vote_average}
-              deleteData
-            />
-          ))}
-      </div>
+
+      {data.length !== 0 ? (
+        <div className="favourite-container">
+          {data &&
+            data.map((elem) => (
+              <div className="container-fav">
+                <div className="media">
+                  <img
+                    className="poster"
+                    src={
+                      elem.poster ? `${img_300}/${elem.poster}` : unavailable
+                    }
+                    alt="Poster"
+                  />
+                  <b className="title">{elem.title}</b>
+                  <span className="subTitle">
+                    {elem.media_type === "tv" ? "Tv Series" : "Movie"}
+                    <span className="subTitle">{elem.date}</span>
+                  </span>
+
+                  {/* <button className="btn-primary" onClick={()=> setWishlist((items)=> [...items,payload])}>Wishlist</button> */}
+                  <button className="btn-primary">
+                    <Link
+                      to={"/details/:" + elem.media_type + "/" + elem.title}
+                    >
+                      View Details
+                    </Link>
+                  </button>
+                  <button
+                    className="btn-primary"
+                    onClick={() => deleteData(elem._id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+        </div>
+      ) : (
+        <div>
+          <h1 style={{ padding: "2rem" }}>
+            You have not marked anything as favourite
+          </h1>
+        </div>
+      )}
     </div>
   );
 };

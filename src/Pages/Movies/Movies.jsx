@@ -1,66 +1,54 @@
-import axios from 'axios'
-import React from 'react'
-import {useState,useEffect} from "react";
+import axios from "axios";
+import React from "react";
+import { useState, useEffect } from "react";
 import SingleContent from "../../components/SingleContent/SingleContent";
-import { useVideo } from '../../VideoContext';
+import { useVideo } from "../../VideoContext";
 
 const Movies = () => {
-    const [content,setContent]=useState([])
+  const [content, setContent] = useState([]);
 
-    const{state}=useVideo();
-  
+  const { state } = useVideo();
 
-    const fetchMovies=async ()=>{
+  const fetchMovies = async () => {
+    const { data } = await axios.get(
+      "https://api.themoviedb.org/3/discover/movie?api_key=cee5e4ddc2c101df001e4a7f0318cec1"
+    );
 
-        const {data}= await axios.get("https://api.themoviedb.org/3/discover/movie?api_key=cee5e4ddc2c101df001e4a7f0318cec1");
+    // console.log(data.results);
+    setContent(data.results);
+  };
 
-        // console.log(data.results);
-        setContent(data.results);
-    }
+  useEffect(() => {
+    fetchMovies();
 
-    useEffect(()=>{
-          
-        fetchMovies();
-        
-        return()=>{
-            setContent([])
-        };   
-    },[])
+    return () => {
+      setContent([]);
+    };
+  }, []);
 
-    // useEffect(() => {
-    //     fetchMovies();
-    //     return () => {
-    //        setContent([])
-    //     }
-    // }, [])
+  return (
+    <div>
+      <span className="pageTitle">Movies</span>
+      <div className="trending">
+        {content &&
+          content.map((elem) => (
+            <SingleContent
+              key={elem.id}
+              id={elem.id}
+              poster={elem.poster_path}
+              title={elem.title || elem.name}
+              date={elem.first_air_date || elem.release_date}
+              media_type={elem.media_type}
+              vote_average={elem.vote_average}
+              payload={elem}
+            />
+          ))}
 
-    return (
-        <div>
-            <span className="pageTitle">Movies</span>
-            <div className="trending">
-                {content && content.map((elem)=>
-                
-               
-                    <SingleContent
-                    key={elem.id}
-                     id={elem.id}
-                     poster={elem.poster_path}
-                     title={elem.title || elem.name}
-                    date={elem.first_air_date || elem.release_date}
-                    media_type={elem.media_type}
-                    vote_average={elem.vote_average}
-                    payload={elem}/>
+        {content &&
+          content.map((elem) => console.log(elem.media_type + "for movies"))}
+      </div>
+    </div>
+  );
+};
 
-                    
-                )}
-
-                {
-                   content && content.map(elem=> console.log(elem.media_type+ "for movies"))
-                }
-
-            </div>
-        </div>
-    )
-}
-
-export default Movies
+export default Movies;

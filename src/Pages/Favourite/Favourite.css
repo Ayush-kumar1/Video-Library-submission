@@ -46,9 +46,8 @@ a {
     color: white;
 }
 
-.trending {
+.favourite-container {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
     gap: 1.5rem;
 }

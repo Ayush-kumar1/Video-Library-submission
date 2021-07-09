@@ -28,6 +28,17 @@
     font-size: 2.5rem;
 }
 
+.final-buttons {
+    display: flex;
+    padding-top: 2rem;
+    gap: 1rem;
+}
+
+.logout-btn {
+    height: 2rem;
+    padding-top: 4rem;
+}
+
 @media (max-width:1000px) {
     .header {
         padding-top: 15px;

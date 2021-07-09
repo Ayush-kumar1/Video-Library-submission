@@ -34,10 +34,10 @@ const Playlist = ({
 
    function deleteData(id) {
     
-    window.location.reload();
+    // window.location.reload();
     
 
-    fetch("http://localhost:5000/removewishlist" ,{
+    fetch("https://matrix-watch-5.herokuapp.com/removewishlist" ,{
       method:"put",
       headers:{
         "Content-Type": "application/json"
@@ -48,7 +48,7 @@ const Playlist = ({
     })
     .then(res=>res.json())
     .then(result=>{
-      console.log(result)
+      // console.log(result)
       
       // navigate("/favourite");
 
@@ -63,6 +63,7 @@ const Playlist = ({
 
   return (
     <>
+    <div className="container-fav">
       <div className="media">
         <img
           className="poster"
@@ -88,6 +89,7 @@ const Playlist = ({
         <button className="btn-primary" onClick={() => deleteData(deletion_id)}>
           Remove
         </button>
+      </div>
       </div>
     </>
   );
