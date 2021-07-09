@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, {useState,useEffect} from 'react'
-import SingleContent from "../../components/SingleContent/SingleContent"
+import SingleContent from "../../components/SingleContent/SingleContent";
+import "./Search.css";
+import SearchIcon from '@material-ui/icons/Search';
+import { IconButton } from '@material-ui/core';
 
 const Search = () => {
 
@@ -26,28 +29,27 @@ const Search = () => {
 
     return (
         <div>
-            <h1>Search</h1>
+            <h1 style={{marginLeft:"1rem"}}>Search</h1>
 
-            <input type="text" style={{margin:"2px",padding:"5px",width:"30vw",borderRadius:"2px",outline:"None"}}
+            <input type="text" style={{marginLeft:"1rem",padding:"5px",width:"30vw",borderRadius:"2px",outline:"None"}}
             onChange={(event)=> setVal(event.target.value)}/>
-            <button style={{height:"1.8rem",width:"1.5rem"}}
-            onClick={option==="movie"?()=> searchMovie():()=> searchShow()}>🔍</button>
+            {/* <button style={{height:"1.8rem",width:"1.5rem"}}
+            onClick={option==="movie"?()=> searchMovie():()=> searchShow()}>🔍</button> */}
+            <IconButton  onClick={option==="movie"?()=> searchMovie():()=> searchShow()}>
+            <SearchIcon/>
+            </IconButton>
+            
 
-            <fieldset style={{width:"30vw",margin:"0.5rem",padding:"1rem",fontSize:"1rem",display:"flex",justifyContent:"center"}}>
-                <legend>Search By</legend>
-                <label>
-                    <input type="radio" name="search" onChange={()=> setOption("movie")} />
-                    Movies
-                </label>
-
-                <label>
-                    <input type="radio" name="search" onChange={()=> setOption("tv")} />
-                    TV Shows
-                </label>
-            </fieldset>
+            <div id="dropdown_header">
+         <button class="btn-primary">Dropdown</button>
+         <div class="dropdown-content">
+         <button style={{marginLeft:"1rem"}} onClick={()=>setOption("movie")}>Movie</button>
+         <button style={{marginLeft:"1rem"}} onClick={()=>setOption("tv")}>Tv Series</button>
+          </div>
+          </div>
 
 
-            <div className="trending">
+            <div className="trending-search">
                 {content && content.map((elem)=>
                     <SingleContent
                     key={elem.id}

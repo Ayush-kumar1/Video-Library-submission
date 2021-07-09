@@ -1,8 +1,10 @@
 import React, {useState, useEffect}from 'react'
 import {img_300, unavailable} from "../../Config/Config"
 import "./SingleContent.css"
+
 import {useCart} from "../../CartContext"
-import axios from "axios"
+import axios from "axios";
+import { Link } from 'react-router-dom';
 
 const SingleContent = ({id,poster,title,date,media_type,vote_average,payload}) => {
 
@@ -20,6 +22,31 @@ const SingleContent = ({id,poster,title,date,media_type,vote_average,payload}) =
       setVideo(data.results[0]?.key);
    }
 
+   
+     const addWishlist=(id,poster,title,date,media_type)=>{
+
+         fetch("http://localhost:5000/addwishlist",{
+           method:"post",
+           headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("jwt")
+          },
+          body:JSON.stringify({
+            id,
+            poster,
+            title,
+            date,
+            media_type
+          })
+         })
+         .then(res=>res.json())
+         .then(result=>{
+           console.log(result)
+         })
+         .catch(err=>console.log(err));
+     }
+   
+
    useEffect(() => {
    
     fetchVideo();
@@ -29,8 +56,9 @@ const SingleContent = ({id,poster,title,date,media_type,vote_average,payload}) =
 
 
     return (
+        
 
-        <div className="media_card">
+        <div className="media">
              
              <img className="poster" src={poster?`${img_300}/${poster}`:unavailable} alt="Poster" />
               <b className="title">{title}</b>
@@ -39,12 +67,15 @@ const SingleContent = ({id,poster,title,date,media_type,vote_average,payload}) =
                  <span className="subTitle">{date}</span>
              </span> 
 
-             <button className="btn-primary" onClick={()=> setWishlist((items)=> [...items,payload])}>Wishlist</button>
-             <button className="btn-primary"><a target="_blank" href={`https://www.youtube.com/watch?v=${video}`} alt='Broken Link'>Watch 👀</a></button>
+             {/* <button className="btn-primary" onClick={()=> setWishlist((items)=> [...items,payload])}>Wishlist</button> */}
+            
+             <button className="btn-primary" onClick={()=> addWishlist(id,poster,title,date,media_type)}>Wishlist</button>
+             <button className="btn-primary"><a target="_blank" href={`https://www.youtube.com/watch_popup?v=${video}`} alt='Broken Link'>Watch 👀</a></button>
+             <Link to={"/details/:"+media_type+"/"+title}>
+             <button className="btn-primary">View details</button>
+             </Link>
         </div>
 
-            
-        
     )
 }
 

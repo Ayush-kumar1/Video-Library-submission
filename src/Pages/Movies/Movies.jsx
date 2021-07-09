@@ -1,10 +1,14 @@
 import axios from 'axios'
 import React from 'react'
 import {useState,useEffect} from "react";
-import SingleContent from "../../components/SingleContent/SingleContent"
+import SingleContent from "../../components/SingleContent/SingleContent";
+import { useVideo } from '../../VideoContext';
 
 const Movies = () => {
     const [content,setContent]=useState([])
+
+    const{state}=useVideo();
+  
 
     const fetchMovies=async ()=>{
 
@@ -17,6 +21,7 @@ const Movies = () => {
     useEffect(()=>{
           
         fetchMovies();
+        
         return()=>{
             setContent([])
         };   
