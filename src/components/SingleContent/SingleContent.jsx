@@ -2,7 +2,7 @@ import React, {useState, useEffect}from 'react'
 import {img_300, unavailable} from "../../Config/Config"
 import "./SingleContent.css"
 
-import {useCart} from "../../CartContext"
+import {useCart} from "../../Context/CartContext"
 import axios from "axios";
 import { Link } from 'react-router-dom';
 

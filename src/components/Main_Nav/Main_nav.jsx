@@ -7,7 +7,6 @@ import WhatshotIcon from '@material-ui/icons/Whatshot';
 import MovieIcon from '@material-ui/icons/Movie';
 import TvIcon from '@material-ui/icons/Tv';
 import SearchIcon from '@material-ui/icons/Search';
-// import {useHistory} from "react-router-dom";
 import { useNavigate } from 'react-router';
 
 const useStyles = makeStyles({
@@ -22,7 +21,7 @@ const useStyles = makeStyles({
 
 export default function SimpleBottomNavigation() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const history=useNavigate();
 
   useEffect(()=>{
